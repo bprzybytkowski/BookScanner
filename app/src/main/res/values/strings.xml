@@ -3,4 +3,5 @@
     <string name="enter_isbn_or_scan">Enter isbn or scan</string>
     <string name="scan">Scan</string>
     <string name="get_book_data">Get book data</string>
+    <string name="book_cover">Book cover</string>
 </resources>
