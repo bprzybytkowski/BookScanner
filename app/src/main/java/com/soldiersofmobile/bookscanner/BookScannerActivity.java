@@ -68,7 +68,7 @@ public class BookScannerActivity extends AppCompatActivity {
                     BooksResponse booksResponse = response.body();
                     if (booksResponse.getTotalItems() > 0) {
                         VolumeInfo volumeInfo = booksResponse.getItems().get(0).getVolumeInfo();
-                        ArrayAdapter<VolumeInfo> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1);
+                        ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1);
                         adapter.add(volumeInfo); //TODO prepare Adapter and list to display data
 
                         //send VolumeInfo to the BookDetailsActivity
