@@ -1,9 +1,11 @@
 package com.soldiersofmobile.bookscanner;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -52,7 +54,7 @@ public class BookScannerActivity extends AppCompatActivity {
         isbnEditText.setText("9780132350884"); //TODO remove me, only for tests
     }
 
-    public void getDetails() {
+    public void getDetails(View view) {
 
         String query = "isbn:" + isbnEditText.getText().toString();
         BookApi bookApi = getBookApi();
@@ -65,13 +67,14 @@ public class BookScannerActivity extends AppCompatActivity {
                     BooksResponse booksResponse = response.body();
                     if (booksResponse.getTotalItems() > 0) {
                         VolumeInfo volumeInfo = booksResponse.getItems().get(0).getVolumeInfo();
-                        //adapter.add(volumeInfo); //TODO prepare Adapter and list to display data
+                        ArrayAdapter<VolumeInfo> adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.activity_book_details);
+                        adapter.add(volumeInfo); //TODO prepare Adapter and list to display data
 
                         //send VolumeInfo to the BookDetailsActivity
                         //TODO create activity and uncomment this code
-                        //Intent intent = new Intent(BookScannerActivity.this, BookDetailsActivity.class);
-                        //intent.putExtra(VOLUME_INFO_EXTRA, volumeInfo);
-                        //startActivity(intent);
+                        Intent intent = new Intent(BookScannerActivity.this, BookDetailsActivity.class);
+                        intent.putExtra(VOLUME_INFO_EXTRA, volumeInfo);
+                        startActivity(intent);
                     }
                 }
             }
@@ -89,7 +92,7 @@ public class BookScannerActivity extends AppCompatActivity {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://www.googleapis.com")
+                .baseUrl("https://www.googleapis.com/")
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -98,7 +101,7 @@ public class BookScannerActivity extends AppCompatActivity {
     }
 
     //start barcode scanner activity
-    public void scan() {
+    public void scan(View view) {
         IntentIntegrator intentIntegrator = new IntentIntegrator(this);
         intentIntegrator.initiateScan();
     }
@@ -113,4 +116,6 @@ public class BookScannerActivity extends AppCompatActivity {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
+
+
 }
