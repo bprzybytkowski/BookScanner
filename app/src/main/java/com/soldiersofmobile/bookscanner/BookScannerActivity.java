@@ -51,9 +51,10 @@ public class BookScannerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_scanner);
         ButterKnife.bind(this);
-        isbnEditText.setText("9780132350884"); //TODO remove me, only for tests
+//        isbnEditText.setText("9780132350884"); //TODO remove me, only for tests
     }
 
+    @OnClick(R.id.get_book_details_button)
     public void getDetails(View view) {
 
         String query = "isbn:" + isbnEditText.getText().toString();
@@ -67,7 +68,7 @@ public class BookScannerActivity extends AppCompatActivity {
                     BooksResponse booksResponse = response.body();
                     if (booksResponse.getTotalItems() > 0) {
                         VolumeInfo volumeInfo = booksResponse.getItems().get(0).getVolumeInfo();
-                        ArrayAdapter<VolumeInfo> adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.activity_book_details);
+                        ArrayAdapter<VolumeInfo> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1);
                         adapter.add(volumeInfo); //TODO prepare Adapter and list to display data
 
                         //send VolumeInfo to the BookDetailsActivity
@@ -92,7 +93,7 @@ public class BookScannerActivity extends AppCompatActivity {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://www.googleapis.com/")
+                .baseUrl("https://www.googleapis.com")
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

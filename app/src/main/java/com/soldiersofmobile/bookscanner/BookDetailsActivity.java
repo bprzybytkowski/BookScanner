@@ -8,6 +8,7 @@ import com.soldiersofmobile.bookscanner.api.model.VolumeInfo;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 public class BookDetailsActivity extends AppCompatActivity {
@@ -20,6 +21,7 @@ public class BookDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_details);
+        ButterKnife.bind(this);
         VolumeInfo volumeInfo = (VolumeInfo) getIntent().getSerializableExtra(BookScannerActivity.VOLUME_INFO_EXTRA);
 
         Picasso.with(this)
