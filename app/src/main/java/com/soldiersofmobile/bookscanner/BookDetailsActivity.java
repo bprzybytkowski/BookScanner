@@ -38,13 +38,21 @@ public class BookDetailsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         VolumeInfo volumeInfo = (VolumeInfo) getIntent().getSerializableExtra(BookScannerActivity.VOLUME_INFO_EXTRA);
 
-        Picasso.with(this)
-                .load(volumeInfo.getImageLinks().getThumbnail())
-                .into(coverImageView);
-
+        if (volumeInfo.getImageLinks() != null) {
+            Picasso.with(this)
+                    .load(volumeInfo.getImageLinks().getThumbnail())
+                    .placeholder(R.mipmap.ic_launcher)
+                    .into(coverImageView);
+        }
         titleTextView.setText(volumeInfo.getTitle());
         subtitleTextView.setText(volumeInfo.getSubtitle());
-        authorsTextView.setText(volumeInfo.getAuthors().toString());
+        StringBuilder authors = new StringBuilder();
+        for (String author : volumeInfo.getAuthors()) {
+            authors.append(author);
+            authors.append(" ");
+        }
+        authorsTextView.setText(authors);
+
         descriptionTextView.setText(volumeInfo.getDescription());
     }
 }

@@ -12,7 +12,7 @@ public interface BookApi {
 
     //TODO add missing Retrofit annotations
 
-    @GET("/books/v1/volumes?q=")
-    Call<BooksResponse> getBook(@Query("query") String query);
+    @GET("/books/v1/volumes")
+    Call<BooksResponse> getBook(@Query("q") String query);
 
 }
